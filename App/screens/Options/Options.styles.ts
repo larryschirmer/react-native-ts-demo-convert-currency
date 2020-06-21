@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-import { colors } from '@constants';
+import { colors } from '../../constants';
 
 const styles = StyleSheet.create({
   row: {

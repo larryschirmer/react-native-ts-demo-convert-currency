@@ -7,10 +7,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true,
-    "baseUrl": "./App",
-    "paths": {
-      "@constants": ["constants"]
-    }
+    "strict": true
   }
 }
