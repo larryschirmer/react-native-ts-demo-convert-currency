@@ -8,6 +8,9 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": true,
-    "baseUrl": "App"
+    "baseUrl": "./App",
+    "paths": {
+      "@constants": ["constants"]
+    }
   }
 }
