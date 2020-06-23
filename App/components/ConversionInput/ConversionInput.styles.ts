@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: 'row',
   },
+  wrapperDisabled: {
+    backgroundColor: colors.offWhite,
+  },
   button: {
     backgroundColor: colors.white,
     borderRightColor: colors.border,

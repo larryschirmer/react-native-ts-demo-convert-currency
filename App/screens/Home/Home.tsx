@@ -29,6 +29,7 @@ const Home = () => {
         value="123"
         onButtonPress={() => alert('btn press')}
         onChangeText={(text) => console.log(text)}
+        disabled={true}
       />
     </View>
   );
