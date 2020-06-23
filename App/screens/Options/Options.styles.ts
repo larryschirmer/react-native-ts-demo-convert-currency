@@ -3,6 +3,8 @@ import { colors } from '../../constants';
 
 const styles = StyleSheet.create({
   row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingVertical: 16,
   },
