@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StatusBar, Image } from 'react-native';
+import { View, StatusBar, Image, Text } from 'react-native';
 
-import { ConversionInput } from '../../components';
+import { OptionInput } from '../../components';
 
 import { colors } from '../../constants';
 
@@ -18,19 +18,13 @@ const Home = () => {
         <Image style={styles.backgroundImage} source={backgroundImage} resizeMode="contain" />
         <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
       </View>
-      <ConversionInput
+      <OptionInput
         text="USD"
         value="123"
         onButtonPress={() => alert('btn press')}
         onChangeText={(text) => console.log(text)}
       />
-      <ConversionInput
-        text="GBP"
-        value="123"
-        onButtonPress={() => alert('btn press')}
-        onChangeText={(text) => console.log(text)}
-        disabled={true}
-      />
+      <Text>123</Text>
     </View>
   );
 };

@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { View, TouchableOpacity, Text, TextInput, GestureResponderEvent } from 'react-native';
 
-import styles from './ConversionInput.styles';
-import {conditionalStyles} from '../../util';
+import styles from './OptionInput.styles';
+import { conditionalStyles } from '../../util';
 
 type Props = {
   text: string;
@@ -12,7 +12,7 @@ type Props = {
   disabled?: boolean;
 };
 
-const ConversionInput: FC<Props> = (props) => {
+const OptionInput: FC<Props> = (props) => {
   const {
     text,
     value,
@@ -41,4 +41,4 @@ const ConversionInput: FC<Props> = (props) => {
   );
 };
 
-export default ConversionInput;
+export default OptionInput;
