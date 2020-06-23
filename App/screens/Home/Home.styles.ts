@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: colors.blue,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "center"
   },
   logo: {
     justifyContent: "center",

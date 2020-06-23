@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StatusBar, Image } from 'react-native';
 
+import { ConversionInput } from '../../components';
+
 import { colors } from '../../constants';
 
 import backgroundImage from '../../assets/images/background.png';
@@ -16,6 +18,18 @@ const Home = () => {
         <Image style={styles.backgroundImage} source={backgroundImage} resizeMode="contain" />
         <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
       </View>
+      <ConversionInput
+        text="USD"
+        value="123"
+        onButtonPress={() => alert('btn press')}
+        onChangeText={(text) => console.log(text)}
+      />
+      <ConversionInput
+        text="GBP"
+        value="123"
+        onButtonPress={() => alert('btn press')}
+        onChangeText={(text) => console.log(text)}
+      />
     </View>
   );
 };
