@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Options } from './screens';
+import { Options, Home } from './screens';
 
 const App = () => {
-  return <Options />;
+  return <Home />;
 };
 
 export default App;
