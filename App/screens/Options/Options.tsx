@@ -3,9 +3,9 @@ import { SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../constants';
 
-import { RowItem } from '../../components';
+import { RowItem, Divider } from '../../components';
 
-import styles from './Options.styles';
+// import styles from './Options.styles';
 
 const Options = () => {
   return (
@@ -13,11 +13,11 @@ const Options = () => {
       <RowItem text="Themes" onPress={() => alert('todo')}>
         <Entypo name="chevron-right" size={20} color={colors.blue} />
       </RowItem>
-      <View style={styles.separator} />
+      <Divider />
       <RowItem text="React Native Basics" onPress={() => alert('todo')}>
         <Entypo name="chevron-right" size={20} color={colors.blue} />
       </RowItem>
-      <View style={styles.separator} />
+      <Divider />
       <RowItem text="React Native by Example" onPress={() => alert('todo')}>
         <Entypo name="chevron-right" size={20} color={colors.blue} />
       </RowItem>
