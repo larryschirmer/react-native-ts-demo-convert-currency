@@ -3,25 +3,24 @@ import { SafeAreaView, TouchableOpacity, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../constants';
 
+import { RowItem } from '../../components';
+
 import styles from './Options.styles';
 
 const Options = () => {
   return (
     <SafeAreaView>
-      <TouchableOpacity style={styles.row}>
-        <Text style={styles.text}>Themes</Text>
+      <RowItem text="Themes" onPress={() => alert('todo')}>
         <Entypo name="chevron-right" size={20} color={colors.blue} />
-      </TouchableOpacity>
+      </RowItem>
       <View style={styles.separator} />
-      <TouchableOpacity style={styles.row}>
-        <Text style={styles.text}>React Native Basics</Text>
-        <Entypo name="export" size={20} color={colors.blue} />
-      </TouchableOpacity>
+      <RowItem text="React Native Basics" onPress={() => alert('todo')}>
+        <Entypo name="chevron-right" size={20} color={colors.blue} />
+      </RowItem>
       <View style={styles.separator} />
-      <TouchableOpacity style={styles.row}>
-        <Text style={styles.text}>React Native by Example</Text>
-        <Entypo name="export" size={20} color={colors.blue} />
-      </TouchableOpacity>
+      <RowItem text="React Native by Example" onPress={() => alert('todo')}>
+        <Entypo name="chevron-right" size={20} color={colors.blue} />
+      </RowItem>
     </SafeAreaView>
   );
 };
