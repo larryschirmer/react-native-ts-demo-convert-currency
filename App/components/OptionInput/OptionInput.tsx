@@ -74,7 +74,7 @@ const OptionInput: FC<Props> = (props) => {
         {...{ value, onChangeText }}
         style={styles.input}
         keyboardType="numeric"
-        editable={disabled}
+        editable={!disabled}
       />
     </View>
   );

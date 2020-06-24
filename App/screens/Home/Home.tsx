@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, StatusBar, Image, Text } from 'react-native';
+import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
 import { format } from 'date-fns';
 
-import { OptionInput } from '../../components';
+import { OptionInput, KeyboardSpacer } from '../../components';
 
 import { colors } from '../../constants';
 
@@ -26,6 +26,7 @@ const conversionRates = {
 
 const Home = () => {
   const [{ rate, base, quote }, setConversion] = useState(conversionRates['USD']);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
 
   const handleOptionChange = (option: string) => {
@@ -35,19 +36,24 @@ const Home = () => {
   return (
     <View style={styles.wrapper}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
-      <View style={styles.logo}>
-        <Image style={styles.backgroundImage} source={backgroundImage} resizeMode="contain" />
-        <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
-      </View>
-      <Text style={styles.textHeader}>Currency Converter</Text>
-      <OptionInput
-        options={['USD', 'GBP']}
-        value="123"
-        onChangeOption={handleOptionChange}
-        onChangeText={(text) => console.log(text)}
-      />
-      <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
-      <Text>123</Text>
+      <ScrollView scrollEnabled={scrollEnabled}>
+        <View style={styles.content}>
+          <View style={styles.logo}>
+            <Image style={styles.backgroundImage} source={backgroundImage} resizeMode="contain" />
+            <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
+          </View>
+          <Text style={styles.textHeader}>Currency Converter</Text>
+          <OptionInput
+            options={['USD', 'GBP']}
+            value="123"
+            onChangeOption={handleOptionChange}
+            onChangeText={(text) => console.log(text)}
+          />
+          <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
+          <Text>{JSON.stringify(scrollEnabled)}</Text>
+          <KeyboardSpacer onChange={(isOpen) => setScrollEnabled(isOpen)} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
