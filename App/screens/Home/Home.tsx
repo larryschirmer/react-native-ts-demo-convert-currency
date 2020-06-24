@@ -19,9 +19,9 @@ const Home = () => {
         <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
       </View>
       <OptionInput
-        text="USD"
+        options={['USD', 'GBP']}
         value="123"
-        onButtonPress={() => alert('btn press')}
+        onChangeOption={(option) => alert(`btn press - ${option}`)}
         onChangeText={(text) => console.log(text)}
       />
       <Text>123</Text>
