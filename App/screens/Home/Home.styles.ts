@@ -1,16 +1,28 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../constants';
-const screen = Dimensions.get("window");
+const screen = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: colors.blue,
-    justifyContent: "center"
+    justifyContent: 'center',
+  },
+  textHeader: {
+    color: colors.white,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 30,
+    marginBottom: 20,
+  },
+  inputCaption: {
+    textAlign: 'center',
+    color: colors.white,
+    fontSize: 14,
   },
   logo: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   backgroundImage: {
     width: screen.width * 0.45,
@@ -19,7 +31,7 @@ const styles = StyleSheet.create({
   foregroundImage: {
     width: screen.width * 0.25,
     height: screen.height * 0.25,
-    position: 'absolute'
+    position: 'absolute',
   },
 });
 
