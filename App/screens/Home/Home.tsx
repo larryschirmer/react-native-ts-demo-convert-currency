@@ -39,8 +39,8 @@ const Home: FC<Props> = ({ navigation }) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
 
-  const handleOptionChange = (option: string) => {
-    if (option === 'USD' || option === 'GBP') setConversion(conversionRates[option]);
+  const handleOptionSelect = () => {
+    navigation.push('CurrencyList');
   };
 
   return (
@@ -59,13 +59,18 @@ const Home: FC<Props> = ({ navigation }) => {
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
           <OptionInput
-            options={['USD', 'GBP']}
+            optionText="USD"
             value="123"
-            onChangeOption={handleOptionChange}
+            handleOptionSelect={handleOptionSelect}
+            onChangeText={(text) => console.log(text)}
+          />
+          <OptionInput
+            optionText="GBP"
+            value="123"
+            handleOptionSelect={handleOptionSelect}
             onChangeText={(text) => console.log(text)}
           />
           <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
-          <Text>{JSON.stringify(scrollEnabled)}</Text>
           <KeyboardSpacer onChange={(isOpen) => setScrollEnabled(isOpen)} />
         </View>
       </ScrollView>

@@ -1,74 +1,37 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { View, TouchableOpacity, Text, TextInput, GestureResponderEvent } from 'react-native';
-
-import { colors } from '../../constants';
 
 import styles from './OptionInput.styles';
 import { conditionalStyles } from '../../util';
 
 type Props = {
-  options: string[];
+  optionText: string;
   value: string;
-  onChangeOption?: (option: string) => void;
+  handleOptionSelect?: (option: GestureResponderEvent) => void;
   onChangeText?: (text: string) => void;
   disabled?: boolean;
 };
 
 const OptionInput: FC<Props> = (props) => {
   const {
-    options,
+    optionText,
     value,
-    onChangeOption = () => {},
+    handleOptionSelect = () => {},
     onChangeText = () => {},
     disabled = false,
   } = props;
-
-  const [selectedOption, setSelectedOption] = useState(options[0]);
-  const [showBtnPane, setShowBtnPane] = useState(false);
-
-  const handleTogglePane = () => {
-    setShowBtnPane(showPane => !showPane)
-  };
-
-  const handleSelectedOption = (option: string) => {
-    setSelectedOption(option);
-    handleTogglePane();
-    onChangeOption(option);
-  };
 
   const inputStyles = conditionalStyles([
     { style: styles.wrapper },
     { style: styles.wrapperDisabled, enabled: disabled },
   ]);
 
-  const buttonPaneStyles = conditionalStyles([
-    { style: styles.buttonPane },
-    { style: styles.hideButtonPane, enabled: !showBtnPane },
-  ]);
-
-  const paneTextStyles = (option: string) =>
-    conditionalStyles([
-      { style: styles.buttonPaneSelection },
-      { style: styles.selectedOption, enabled: option === selectedOption },
-    ]);
-
   return (
     <View style={inputStyles}>
       <View style={styles.button}>
-        <TouchableOpacity onPress={handleTogglePane}>
-          <Text style={styles.buttonText}>{selectedOption}</Text>
+        <TouchableOpacity onPress={handleOptionSelect}>
+          <Text style={styles.buttonText}>{optionText}</Text>
         </TouchableOpacity>
-        <View style={buttonPaneStyles}>
-          {options.map((option, i) => (
-            <TouchableOpacity
-              key={`${option}-${i}`}
-              style={paneTextStyles(option)}
-              onPress={() => handleSelectedOption(option)}
-            >
-              <Text style={styles.buttonPaneText}>{option}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
       </View>
       <TextInput
         {...{ value, onChangeText }}
