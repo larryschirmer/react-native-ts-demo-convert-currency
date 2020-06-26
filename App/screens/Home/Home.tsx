@@ -6,12 +6,13 @@ import { Entypo } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
 
-import { OptionInput, KeyboardSpacer } from '../../components';
+import { OptionInput, KeyboardSpacer, Button } from '../../components';
 
 import { colors } from '../../constants';
 
 import backgroundImage from '../../assets/images/background.png';
 import logoImage from '../../assets/images/logo.png';
+import reverseImage from '../../assets/images/reverse.png';
 
 import styles from './Home.styles';
 
@@ -79,6 +80,10 @@ const Home: FC<Props> = ({ navigation }) => {
             onChangeText={(text) => console.log(text)}
           />
           <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
+          <Button onPress={() => {}}>
+            <Image source={reverseImage} style={styles.reverseBtnImage} />
+            <Text style={styles.reverseBtnText}>Reverse Currencies</Text>
+          </Button>
           <KeyboardSpacer onChange={(isOpen) => setScrollEnabled(isOpen)} />
         </View>
       </ScrollView>

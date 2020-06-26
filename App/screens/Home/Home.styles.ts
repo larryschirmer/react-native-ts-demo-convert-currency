@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
     height: screen.height * 0.25,
     position: 'absolute',
   },
+  reverseBtnImage: {
+    marginRight: 10,
+    width: 20,
+    height: 20,
+  },
+  reverseBtnText: {
+    fontSize: 16,
+    color: colors.white,
+  },
 });
 
 export default styles;
