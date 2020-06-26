@@ -5,7 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Options from '../screens/Options';
 
-const MainStack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Options: undefined;
+};
+
+const MainStack = createStackNavigator<RootStackParamList>();
 const MainStackScreen = () => (
   <MainStack.Navigator>
     <MainStack.Screen name="Home" component={Home} options={{ headerShown: false }} />

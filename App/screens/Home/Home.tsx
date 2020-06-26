@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
+import React, { FC, useState } from 'react';
+import { View, StatusBar, Image, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../config/Navigation';
+import { Entypo } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
 
 import { OptionInput, KeyboardSpacer } from '../../components';
@@ -24,7 +28,13 @@ const conversionRates = {
   },
 };
 
-const Home = () => {
+type HomeNavProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+type Props = {
+  navigation: HomeNavProp;
+};
+
+const Home: FC<Props> = ({ navigation }) => {
   const [{ rate, base, quote }, setConversion] = useState(conversionRates['USD']);
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
@@ -36,6 +46,11 @@ const Home = () => {
   return (
     <View style={styles.wrapper}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
+      <SafeAreaView style={styles.header} edges={['top']}>
+        <TouchableOpacity onPress={() => navigation.push('Options')}>
+          <Entypo name="cog" size={32} color={colors.white} />
+        </TouchableOpacity>
+      </SafeAreaView>
       <ScrollView scrollEnabled={scrollEnabled}>
         <View style={styles.content}>
           <View style={styles.logo}>

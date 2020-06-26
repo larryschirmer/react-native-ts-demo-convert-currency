@@ -8,9 +8,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blue,
     justifyContent: 'center',
   },
-  content: {
-    paddingTop: screen.height * 0.2,
+  header: {
+    alignItems: 'flex-end',
+    marginHorizontal: 20,
+    paddingVertical: 0,
   },
+  content: {},
   textHeader: {
     color: colors.white,
     fontWeight: 'bold',
