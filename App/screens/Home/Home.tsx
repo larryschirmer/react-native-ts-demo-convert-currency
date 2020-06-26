@@ -39,8 +39,16 @@ const Home: FC<Props> = ({ navigation }) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
 
-  const handleOptionSelect = () => {
-    navigation.push('CurrencyList');
+  const handleOptionSelect = (inputType: string) => () => {
+    switch (inputType) {
+      case 'base':
+        navigation.push('CurrencyList', { title: 'Base Currency' });
+        break;
+      case 'quote':
+        navigation.push('CurrencyList', { title: 'Quote Currency' });
+        break;
+      default:
+    }
   };
 
   return (
@@ -61,13 +69,13 @@ const Home: FC<Props> = ({ navigation }) => {
           <OptionInput
             optionText="USD"
             value="123"
-            handleOptionSelect={handleOptionSelect}
+            handleOptionSelect={handleOptionSelect('base')}
             onChangeText={(text) => console.log(text)}
           />
           <OptionInput
             optionText="GBP"
             value="123"
-            handleOptionSelect={handleOptionSelect}
+            handleOptionSelect={handleOptionSelect('quote')}
             onChangeText={(text) => console.log(text)}
           />
           <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
