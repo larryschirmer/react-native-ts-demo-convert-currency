@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
-import ModalStackScreen from './stacks/ModalStack';
+import { RootStackParamList as MainStackParams } from './stacks/MainStack';
+import ModalStackScreen, { RootStackParamList as ModalStackParams } from './stacks/ModalStack';
+
+export type NavigationParams = MainStackParams & ModalStackParams;
 
 const Navigation = () => (
   <NavigationContainer>

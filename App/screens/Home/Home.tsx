@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { View, StatusBar, Image, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../config/Navigation';
+import { NavigationParams } from '../../config/Navigation';
 import { Entypo } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
@@ -29,7 +29,7 @@ const conversionRates = {
   },
 };
 
-type HomeNavProp = StackNavigationProp<RootStackParamList, 'Home'>;
+type HomeNavProp = StackNavigationProp<NavigationParams, 'Home'>;
 
 type Props = {
   navigation: HomeNavProp;
@@ -40,16 +40,27 @@ const Home: FC<Props> = ({ navigation }) => {
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
 
-  const handleOptionSelect = (inputType: string) => () => {
+  const handleOptionSelect = (inputType: string, activeCurrency: string) => () => {
     switch (inputType) {
       case 'base':
-        navigation.push('CurrencyList', { title: 'Base Currency' });
+        navigation.push('CurrencyList', { title: 'Base Currency', activeCurrency });
         break;
       case 'quote':
-        navigation.push('CurrencyList', { title: 'Quote Currency' });
+        navigation.push('CurrencyList', { title: 'Quote Currency', activeCurrency });
         break;
       default:
     }
+  };
+
+  const renderCurrencyOption = (currency: string) => {
+    return (
+      <OptionInput
+        optionText={currency}
+        value="123"
+        handleOptionSelect={handleOptionSelect('base', currency)}
+        onChangeText={(text) => console.log(text)}
+      />
+    );
   };
 
   return (
@@ -67,18 +78,8 @@ const Home: FC<Props> = ({ navigation }) => {
             <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
-          <OptionInput
-            optionText="USD"
-            value="123"
-            handleOptionSelect={handleOptionSelect('base')}
-            onChangeText={(text) => console.log(text)}
-          />
-          <OptionInput
-            optionText="GBP"
-            value="123"
-            handleOptionSelect={handleOptionSelect('quote')}
-            onChangeText={(text) => console.log(text)}
-          />
+          {renderCurrencyOption('USD')}
+          {renderCurrencyOption('GBP')}
           <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
           <Button onPress={() => {}}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />

@@ -12,7 +12,7 @@ import closeIcon from '../../assets/images/close.png';
 
 export type RootStackParamList = {
   Main: undefined;
-  CurrencyList: { title: string } | undefined;
+  CurrencyList: { title?: string; activeCurrency?: string } | undefined;
 };
 
 export const ModalStack = createStackNavigator<RootStackParamList>();
