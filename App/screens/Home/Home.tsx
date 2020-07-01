@@ -23,10 +23,12 @@ type Props = {
 };
 
 const Home: FC<Props> = ({ navigation }) => {
+  const rate = 0.89824;
   const [conversion, setConversion] = useState({ base: 'USD', quote: 'GBP' });
+  const [baseInput, setBaseInput] = useState('100');
+  const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * rate).toFixed(2));
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
-  const rate = 0.89824;
 
   const handleOptionSelect = (inputType: string, activeCurrency: string) => () => {
     switch (inputType) {
@@ -44,17 +46,6 @@ const Home: FC<Props> = ({ navigation }) => {
     setConversion((prev) => ({ base: prev.quote, quote: prev.base }));
   };
 
-  const renderCurrencyOption = (currencyType: 'base' | 'quote') => {
-    return (
-      <OptionInput
-        optionText={conversion[currencyType]}
-        value="123"
-        handleOptionSelect={handleOptionSelect(currencyType, conversion[currencyType])}
-        onChangeText={(text) => console.log(text)}
-      />
-    );
-  };
-
   return (
     <View style={styles.wrapper}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
@@ -70,9 +61,25 @@ const Home: FC<Props> = ({ navigation }) => {
             <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
-          {renderCurrencyOption('base')}
-          {renderCurrencyOption('quote')}
-          <Text style={styles.inputCaption}>{`1 ${conversion.base} = ${rate} ${conversion.quote} as of ${today}`}</Text>
+          <OptionInput
+            optionText={conversion.base}
+            value={baseInput}
+            handleOptionSelect={handleOptionSelect('base', conversion.base)}
+            onChangeText={(value) => {
+              setBaseInput(value);
+              setQuoteInput((parseFloat(value || '0') * rate).toFixed(2));
+            }}
+          />
+          <OptionInput
+            disabled
+            optionText={conversion.quote}
+            value={quoteInput}
+            handleOptionSelect={handleOptionSelect('base', conversion.quote)}
+            onChangeText={() => {}}
+          />
+          <Text
+            style={styles.inputCaption}
+          >{`1 ${conversion.base} = ${rate} ${conversion.quote} as of ${today}`}</Text>
           <Button customStyles={styles.reverseBtn} onPress={handleReverseCurrency}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />
             <Text style={styles.reverseBtnText}>Reverse Currencies</Text>
