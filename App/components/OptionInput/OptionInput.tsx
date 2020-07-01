@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View, Text, TextInput, GestureResponderEvent } from 'react-native';
 
-import { Button } from '../';
+import Button from '../Button';
 
 import styles from './OptionInput.styles';
 import { conditionalStyles } from '../../util';

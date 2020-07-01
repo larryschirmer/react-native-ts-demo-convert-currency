@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 
-import { Button } from '../';
+import Button from '../Button';
 
 import styles from './DropdownInput.styles';
 import { conditionalStyles } from '../../util';

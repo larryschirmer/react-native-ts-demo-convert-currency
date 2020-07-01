@@ -16,19 +16,6 @@ import solidCogImage from '../../assets/images/solid-cog.png';
 
 import styles from './Home.styles';
 
-const conversionRates = {
-  USD: {
-    rate: 0.89824,
-    base: 'USD',
-    quote: 'GBP',
-  },
-  GBP: {
-    rate: 1.1133,
-    base: 'GBP',
-    quote: 'USD',
-  },
-};
-
 type Nav = StackNavigationProp<NavigationParams, 'Home'>;
 
 type Props = {
@@ -36,9 +23,10 @@ type Props = {
 };
 
 const Home: FC<Props> = ({ navigation }) => {
-  const [{ rate, base, quote }, setConversion] = useState(conversionRates['USD']);
+  const [conversion, setConversion] = useState({ base: 'USD', quote: 'GBP' });
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
+  const rate = 0.89824;
 
   const handleOptionSelect = (inputType: string, activeCurrency: string) => () => {
     switch (inputType) {
@@ -52,12 +40,16 @@ const Home: FC<Props> = ({ navigation }) => {
     }
   };
 
-  const renderCurrencyOption = (currency: string) => {
+  const handleReverseCurrency = () => {
+    setConversion((prev) => ({ base: prev.quote, quote: prev.base }));
+  };
+
+  const renderCurrencyOption = (currencyType: 'base' | 'quote') => {
     return (
       <OptionInput
-        optionText={currency}
+        optionText={conversion[currencyType]}
         value="123"
-        handleOptionSelect={handleOptionSelect('base', currency)}
+        handleOptionSelect={handleOptionSelect(currencyType, conversion[currencyType])}
         onChangeText={(text) => console.log(text)}
       />
     );
@@ -78,10 +70,10 @@ const Home: FC<Props> = ({ navigation }) => {
             <Image style={styles.foregroundImage} source={logoImage} resizeMode="contain" />
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
-          {renderCurrencyOption('USD')}
-          {renderCurrencyOption('GBP')}
-          <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
-          <Button customStyles={styles.reverseBtn} onPress={() => {}}>
+          {renderCurrencyOption('base')}
+          {renderCurrencyOption('quote')}
+          <Text style={styles.inputCaption}>{`1 ${conversion.base} = ${rate} ${conversion.quote} as of ${today}`}</Text>
+          <Button customStyles={styles.reverseBtn} onPress={handleReverseCurrency}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />
             <Text style={styles.reverseBtnText}>Reverse Currencies</Text>
           </Button>

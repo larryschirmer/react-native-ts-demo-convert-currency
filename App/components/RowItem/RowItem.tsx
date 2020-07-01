@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text, View, GestureResponderEvent } from 'react-native';
 
-import { Button } from '../';
+import Button from '../Button';
 
 import styles from './RowItem.styles';
 
