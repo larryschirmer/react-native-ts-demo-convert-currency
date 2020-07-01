@@ -1,10 +1,12 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, Alert, StatusBar } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { SafeAreaView, ScrollView, Alert, StatusBar, Image } from 'react-native';
 import { colors } from '../../constants';
 
 import { RowItem, Divider } from '../../components';
 import { openUrl } from '../../util';
+
+import rightChevIcon from '../../assets/images/right-chevron.png';
+import shareIcon from '../../assets/images/share.png';
 
 import styles from './Options.styles';
 
@@ -23,18 +25,18 @@ const Options = () => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
       <ScrollView>
         <RowItem text="Themes" onPress={() => alert('todo')}>
-          <Entypo name="chevron-right" size={20} color={colors.blue} />
+          <Image style={styles.chevIcon} source={rightChevIcon} />
         </RowItem>
         <Divider />
         <RowItem text="React Native Basics" onPress={() => openUrl(links.basics, handleError)}>
-          <Entypo name="export" size={20} color={colors.blue} />
+          <Image style={styles.shareIcon} source={shareIcon} />
         </RowItem>
         <Divider />
         <RowItem
           text="React Native by Example"
           onPress={() => openUrl(links.byExample, handleError)}
         >
-          <Entypo name="export" size={20} color={colors.blue} />
+          <Image style={styles.shareIcon} source={shareIcon} />
         </RowItem>
       </ScrollView>
     </SafeAreaView>

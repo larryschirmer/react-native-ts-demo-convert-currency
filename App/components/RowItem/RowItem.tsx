@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, Text, View, GestureResponderEvent } from 'react-native';
+import { Text, View, GestureResponderEvent } from 'react-native';
+
+import { Button } from '../';
 
 import styles from './RowItem.styles';
 
@@ -8,12 +10,12 @@ type Props = {
   onPress?: (event: GestureResponderEvent) => void;
 };
 
-const RowItem: FC<Props> = ({ text, onPress, children }) => {
+const RowItem: FC<Props> = ({ text, onPress = () => {}, children }) => {
   return (
-    <TouchableOpacity {...{ onPress }} style={styles.row}>
+    <Button {...{ onPress }} customStyles={styles.row}>
       <Text style={styles.text}>{text}</Text>
       <View>{children}</View>
-    </TouchableOpacity>
+    </Button>
   );
 };
 

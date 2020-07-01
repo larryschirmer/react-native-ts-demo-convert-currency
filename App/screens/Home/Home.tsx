@@ -1,8 +1,7 @@
 import React, { FC, useState } from 'react';
-import { View, StatusBar, Image, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
-import { Entypo } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
 
@@ -13,6 +12,7 @@ import { colors } from '../../constants';
 import backgroundImage from '../../assets/images/background.png';
 import logoImage from '../../assets/images/logo.png';
 import reverseImage from '../../assets/images/reverse.png';
+import solidCogImage from '../../assets/images/solid-cog.png';
 
 import styles from './Home.styles';
 
@@ -29,10 +29,10 @@ const conversionRates = {
   },
 };
 
-type HomeNavProp = StackNavigationProp<NavigationParams, 'Home'>;
+type Nav = StackNavigationProp<NavigationParams, 'Home'>;
 
 type Props = {
-  navigation: HomeNavProp;
+  navigation: Nav;
 };
 
 const Home: FC<Props> = ({ navigation }) => {
@@ -67,9 +67,9 @@ const Home: FC<Props> = ({ navigation }) => {
     <View style={styles.wrapper}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
       <SafeAreaView style={styles.header} edges={['top']}>
-        <TouchableOpacity onPress={() => navigation.push('Options')}>
-          <Entypo name="cog" size={32} color={colors.white} />
-        </TouchableOpacity>
+        <Button customStyles={styles.headerBtn} onPress={() => navigation.push('Options')}>
+          <Image style={styles.headerBtnImage} source={solidCogImage} />
+        </Button>
       </SafeAreaView>
       <ScrollView scrollEnabled={scrollEnabled}>
         <View style={styles.content}>
@@ -81,7 +81,7 @@ const Home: FC<Props> = ({ navigation }) => {
           {renderCurrencyOption('USD')}
           {renderCurrencyOption('GBP')}
           <Text style={styles.inputCaption}>{`1 ${base} = ${rate} ${quote} as of ${today}`}</Text>
-          <Button onPress={() => {}}>
+          <Button customStyles={styles.reverseBtn} onPress={() => {}}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />
             <Text style={styles.reverseBtnText}>Reverse Currencies</Text>
           </Button>

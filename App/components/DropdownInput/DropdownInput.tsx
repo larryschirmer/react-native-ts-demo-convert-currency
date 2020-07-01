@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
+
+import { Button } from '../';
 
 import styles from './DropdownInput.styles';
 import { conditionalStyles } from '../../util';
@@ -25,7 +27,7 @@ const DropdownInput: FC<Props> = (props) => {
   const [showBtnPane, setShowBtnPane] = useState(false);
 
   const handleTogglePane = () => {
-    setShowBtnPane(showPane => !showPane)
+    setShowBtnPane((showPane) => !showPane);
   };
 
   const handleSelectedOption = (option: string) => {
@@ -53,18 +55,18 @@ const DropdownInput: FC<Props> = (props) => {
   return (
     <View style={inputStyles}>
       <View style={styles.button}>
-        <TouchableOpacity onPress={handleTogglePane}>
+        <Button onPress={handleTogglePane}>
           <Text style={styles.buttonText}>{selectedOption}</Text>
-        </TouchableOpacity>
+        </Button>
         <View style={buttonPaneStyles}>
           {options.map((option, i) => (
-            <TouchableOpacity
+            <Button
               key={`${option}-${i}`}
-              style={paneTextStyles(option)}
+              customStyles={paneTextStyles(option)}
               onPress={() => handleSelectedOption(option)}
             >
               <Text style={styles.buttonPaneText}>{option}</Text>
-            </TouchableOpacity>
+            </Button>
           ))}
         </View>
       </View>

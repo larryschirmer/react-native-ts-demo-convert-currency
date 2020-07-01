@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
+import { TouchableOpacity, StyleProp, ViewStyle, GestureResponderEvent } from 'react-native';
 
 import styles from './Button.styles';
 
 type Props = {
-  onPress: () => void;
+  onPress: (event: GestureResponderEvent) => void;
   customStyles?: StyleProp<ViewStyle>;
 };
 

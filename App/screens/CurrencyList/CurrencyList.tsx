@@ -11,12 +11,12 @@ import { colors } from '../../constants';
 
 import checkBackgroundIcon from '../../assets/images/checkBackground.png';
 
-type CurrencyListRouteProp = RouteProp<NavigationParams, 'CurrencyList'>;
-type CurrencyListNavProp = StackNavigationProp<NavigationParams, 'CurrencyList'>;
+type Nav = StackNavigationProp<NavigationParams, 'CurrencyList'>;
+type Route = RouteProp<NavigationParams, 'CurrencyList'>;
 
 type Props = {
-  navigation: CurrencyListNavProp;
-  route: CurrencyListRouteProp;
+  navigation: Nav;
+  route: Route;
 };
 
 const CurrencyList: FC<Props> = ({ navigation, route }) => {

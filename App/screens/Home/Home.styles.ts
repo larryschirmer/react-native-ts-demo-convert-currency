@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingVertical: 0,
   },
+  headerBtn: {
+    width: 30,
+    height: 30,
+  },
+  headerBtnImage: {
+    width: '100%',
+    height: '100%',
+  },
   content: {},
   textHeader: {
     color: colors.white,
@@ -38,6 +46,9 @@ const styles = StyleSheet.create({
     width: screen.width * 0.25,
     height: screen.height * 0.25,
     position: 'absolute',
+  },
+  reverseBtn: {
+    marginVertical: 20,
   },
   reverseBtnImage: {
     marginRight: 10,

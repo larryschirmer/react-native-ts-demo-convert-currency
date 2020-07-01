@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { View, TouchableOpacity, Text, TextInput, GestureResponderEvent } from 'react-native';
+import { View, Text, TextInput, GestureResponderEvent } from 'react-native';
+
+import { Button } from '../';
 
 import styles from './OptionInput.styles';
 import { conditionalStyles } from '../../util';
@@ -29,9 +31,9 @@ const OptionInput: FC<Props> = (props) => {
   return (
     <View style={inputStyles}>
       <View style={styles.button}>
-        <TouchableOpacity onPress={handleOptionSelect}>
+        <Button onPress={handleOptionSelect}>
           <Text style={styles.buttonText}>{optionText}</Text>
-        </TouchableOpacity>
+        </Button>
       </View>
       <TextInput
         {...{ value, onChangeText }}
