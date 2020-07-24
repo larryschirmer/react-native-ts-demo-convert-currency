@@ -10,6 +10,7 @@ const SAMPLE_RATES = {
   CNY: 7.9451,
   CZK: 25.715,
   DKK: 7.4567,
+  EUR: 1.293,
   GBP: 0.89824,
   HKD: 9.1324,
   HRK: 7.4341,
