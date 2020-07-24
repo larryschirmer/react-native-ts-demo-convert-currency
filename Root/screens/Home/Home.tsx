@@ -3,7 +3,7 @@ import { View, StatusBar, Image, Text, ScrollView, Animated, Easing } from 'reac
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { format } from 'date-fns';
+import moment from 'moment';
 
 import { OptionInput, KeyboardSpacer, Button } from '../../components';
 import { Currency } from '../../state';
@@ -33,7 +33,7 @@ const Home: FC<Props> = ({ navigation }) => {
   const currentRate = rates?.[quoteCurrency] ?? 0;
   const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * currentRate).toFixed(2));
   const [scrollEnabled, setScrollEnabled] = useState(false);
-  const latestFetchTime = !!fetchTime ? format(new Date(fetchTime), 'MMM do, yyyy') : '—';
+  const latestFetchTime = !!fetchTime ? moment(fetchTime).format('MMM do, yyyy') : '—';
 
   // update quote value on rate update
   useEffect(() => {

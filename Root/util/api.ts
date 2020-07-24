@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import format from 'date-fns/format';
+import moment from 'moment';
 
 const SAMPLE_RATES = {
   AUD: 1.6164,
@@ -54,7 +54,7 @@ const api = (path: string = '') => {
 
   const response: Response = {
     base: baseCurrency,
-    date: format(new Date(), 'yyyy-MM-dd'),
+    date: moment().format('yyyy-MM-dd'),
     rates: {
       ...SAMPLE_RATES,
       [baseCurrency]: 1,
