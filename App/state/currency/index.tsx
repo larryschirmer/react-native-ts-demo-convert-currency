@@ -48,7 +48,7 @@ export const Provider: FC<Props> = ({ children }) => {
 
   const changeCurrencyBase = (selectedCurrency: string = '') => {
     setBaseCurrency(selectedCurrency);
-    getRates(quoteCurrency).then(handleResponse);
+    getRates(selectedCurrency).then(handleResponse);
   };
 
   const changeCurrencyQuote = (selectedCurrency: string = '') => {

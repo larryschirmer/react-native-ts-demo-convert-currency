@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext, useEffect, useMemo } from 'react';
+import React, { FC, useState, useContext, useEffect } from 'react';
 import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
@@ -27,12 +27,9 @@ const Home: FC<Props> = ({ navigation }) => {
   const { baseCurrency, quoteCurrency, swapCurrencies, fetchTime, rates } = useContext(
     Currency.Context,
   );
-
-  const currentRate = useMemo(() => {
-    return rates?.[quoteCurrency] ?? 0;
-  }, [rates]);
-
+  
   const [baseInput, setBaseInput] = useState('100');
+  const currentRate = rates?.[quoteCurrency] ?? 0;
   const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * currentRate).toFixed(2));
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const latestFetchTime = !!fetchTime ? format(new Date(fetchTime), 'MMM do, yyyy') : '—';
