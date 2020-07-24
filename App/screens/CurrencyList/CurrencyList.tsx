@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
@@ -8,6 +8,7 @@ import { useSafeArea } from 'react-native-safe-area-context';
 import currencies from '../../data/currencies.json';
 import { RowItem, Divider } from '../../components';
 import { colors } from '../../constants';
+import { Currency } from '../../state';
 
 import checkBackgroundIcon from '../../assets/images/checkBackground.png';
 
@@ -22,6 +23,15 @@ type Props = {
 const CurrencyList: FC<Props> = ({ navigation, route }) => {
   const insets = useSafeArea();
   const { activeCurrency } = route.params ?? {};
+  const { baseCurrency, setBaseCurrency, setQuoteCurrency } = useContext(Currency.Context);
+
+  const handleSetCurrency = (selectedCurrency: string) => {
+    if (activeCurrency === baseCurrency) {
+      setBaseCurrency(selectedCurrency);
+    } else {
+      setQuoteCurrency(selectedCurrency);
+    }
+  };
 
   return (
     <View
@@ -39,6 +49,7 @@ const CurrencyList: FC<Props> = ({ navigation, route }) => {
             <RowItem
               text={item}
               onPress={() => {
+                handleSetCurrency(item);
                 navigation.pop();
               }}
             >

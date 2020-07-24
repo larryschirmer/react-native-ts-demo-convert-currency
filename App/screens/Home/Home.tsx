@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { format } from 'date-fns';
 
 import { OptionInput, KeyboardSpacer, Button } from '../../components';
+import { Currency } from '../../state';
 
 import { colors } from '../../constants';
 
@@ -24,8 +25,8 @@ type Props = {
 
 const Home: FC<Props> = ({ navigation }) => {
   const rate = 0.89824;
-  const [conversion, setConversion] = useState({ base: 'USD', quote: 'GBP' });
   const [baseInput, setBaseInput] = useState('100');
+  const { baseCurrency, quoteCurrency, swapCurrencies } = useContext(Currency.Context);
   const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * rate).toFixed(2));
   const [scrollEnabled, setScrollEnabled] = useState(false);
   const today = format(new Date(), 'MMM do, yyyy');
@@ -43,7 +44,7 @@ const Home: FC<Props> = ({ navigation }) => {
   };
 
   const handleReverseCurrency = () => {
-    setConversion((prev) => ({ base: prev.quote, quote: prev.base }));
+    swapCurrencies();
   };
 
   return (
@@ -62,9 +63,9 @@ const Home: FC<Props> = ({ navigation }) => {
           </View>
           <Text style={styles.textHeader}>Currency Converter</Text>
           <OptionInput
-            optionText={conversion.base}
+            optionText={baseCurrency}
             value={baseInput}
-            handleOptionSelect={handleOptionSelect('base', conversion.base)}
+            handleOptionSelect={handleOptionSelect('base', baseCurrency)}
             onChangeText={(value) => {
               setBaseInput(value);
               setQuoteInput((parseFloat(value || '0') * rate).toFixed(2));
@@ -72,14 +73,14 @@ const Home: FC<Props> = ({ navigation }) => {
           />
           <OptionInput
             disabled
-            optionText={conversion.quote}
+            optionText={quoteCurrency}
             value={quoteInput}
-            handleOptionSelect={handleOptionSelect('base', conversion.quote)}
+            handleOptionSelect={handleOptionSelect('quote', quoteCurrency)}
             onChangeText={() => {}}
           />
           <Text
             style={styles.inputCaption}
-          >{`1 ${conversion.base} = ${rate} ${conversion.quote} as of ${today}`}</Text>
+          >{`1 ${baseCurrency} = ${rate} ${quoteCurrency} as of ${today}`}</Text>
           <Button customStyles={styles.reverseBtn} onPress={handleReverseCurrency}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />
             <Text style={styles.reverseBtnText}>Reverse Currencies</Text>
