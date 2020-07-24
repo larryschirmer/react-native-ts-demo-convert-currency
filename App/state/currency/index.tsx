@@ -7,6 +7,7 @@ type Defaults = {
   quoteCurrency: string;
   rates: { [index: string]: number };
   fetchTime: string;
+  isLoading: boolean;
   changeCurrencyBase: (selectedCurrency: string) => void;
   changeCurrencyQuote: (selectedCurrency: string) => void;
   swapCurrencies: () => void;
@@ -17,6 +18,7 @@ const defaults: Defaults = {
   quoteCurrency: 'GBP',
   rates: {},
   fetchTime: '',
+  isLoading: false,
   changeCurrencyBase: () => {},
   changeCurrencyQuote: () => {},
   swapCurrencies: () => {},
@@ -35,6 +37,7 @@ export const Provider: FC<Props> = ({ children }) => {
   const [quoteCurrency, setQuoteCurrency] = useState(defaults.quoteCurrency);
   const [rates, setRates] = useState(defaults.rates);
   const [fetchTime, setFetchTime] = useState(defaults.fetchTime);
+  const [isLoading, setIsLoading] = useState(defaults.isLoading);
 
   const handleResponse = ({ rates = {}, date = '' }) => {
     setRates(rates);
@@ -43,12 +46,18 @@ export const Provider: FC<Props> = ({ children }) => {
 
   // fetch latested rates on load
   useEffect(() => {
-    getRates(defaults.baseCurrency).then(handleResponse);
+    setIsLoading(true);
+    getRates(defaults.baseCurrency)
+      .then(handleResponse)
+      .finally(() => setIsLoading(false));
   }, []);
 
   const changeCurrencyBase = (selectedCurrency: string = '') => {
     setBaseCurrency(selectedCurrency);
-    getRates(selectedCurrency).then(handleResponse);
+    setIsLoading(true);
+    getRates(selectedCurrency)
+      .then(handleResponse)
+      .finally(() => setIsLoading(false));
   };
 
   const changeCurrencyQuote = (selectedCurrency: string = '') => {
@@ -58,7 +67,10 @@ export const Provider: FC<Props> = ({ children }) => {
   const swapCurrencies = () => {
     setBaseCurrency(quoteCurrency);
     setQuoteCurrency(baseCurrency);
-    getRates(quoteCurrency).then(handleResponse);
+    setIsLoading(true);
+    getRates(quoteCurrency)
+      .then(handleResponse)
+      .finally(() => setIsLoading(false));
   };
 
   const contextValue = {
@@ -66,6 +78,7 @@ export const Provider: FC<Props> = ({ children }) => {
     quoteCurrency,
     rates,
     fetchTime,
+    isLoading,
     changeCurrencyBase,
     changeCurrencyQuote,
     swapCurrencies,

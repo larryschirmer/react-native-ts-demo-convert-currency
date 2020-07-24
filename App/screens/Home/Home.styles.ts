@@ -47,6 +47,14 @@ const styles = StyleSheet.create({
     height: screen.height * 0.25,
     position: 'absolute',
   },
+  loadingImageContainer: {
+    width: '100%',
+    alignItems: "center"
+  },
+  loadingImage: {
+    width: 30,
+    height: 30,
+  },
   reverseBtn: {
     marginVertical: 20,
   },
