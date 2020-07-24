@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useState, useContext, useEffect, useMemo } from 'react';
 import { View, StatusBar, Image, Text, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { NavigationParams } from '../../config/Navigation';
@@ -24,12 +24,23 @@ type Props = {
 };
 
 const Home: FC<Props> = ({ navigation }) => {
-  const rate = 0.89824;
+  const { baseCurrency, quoteCurrency, swapCurrencies, fetchTime, rates } = useContext(
+    Currency.Context,
+  );
+
+  const currentRate = useMemo(() => {
+    return rates?.[quoteCurrency] ?? 0;
+  }, [rates]);
+
   const [baseInput, setBaseInput] = useState('100');
-  const { baseCurrency, quoteCurrency, swapCurrencies } = useContext(Currency.Context);
-  const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * rate).toFixed(2));
+  const [quoteInput, setQuoteInput] = useState((parseFloat(baseInput) * currentRate).toFixed(2));
   const [scrollEnabled, setScrollEnabled] = useState(false);
-  const today = format(new Date(), 'MMM do, yyyy');
+  const latestFetchTime = !!fetchTime ? format(new Date(fetchTime), 'MMM do, yyyy') : '—';
+
+  // update quote value on rate update
+  useEffect(() => {
+    setQuoteInput((parseFloat(baseInput) * currentRate).toFixed(2));
+  }, [currentRate]);
 
   const handleOptionSelect = (inputType: string, activeCurrency: string) => () => {
     switch (inputType) {
@@ -68,7 +79,7 @@ const Home: FC<Props> = ({ navigation }) => {
             handleOptionSelect={handleOptionSelect('base', baseCurrency)}
             onChangeText={(value) => {
               setBaseInput(value);
-              setQuoteInput((parseFloat(value || '0') * rate).toFixed(2));
+              setQuoteInput((parseFloat(value || '0') * currentRate).toFixed(2));
             }}
           />
           <OptionInput
@@ -80,7 +91,7 @@ const Home: FC<Props> = ({ navigation }) => {
           />
           <Text
             style={styles.inputCaption}
-          >{`1 ${baseCurrency} = ${rate} ${quoteCurrency} as of ${today}`}</Text>
+          >{`1 ${baseCurrency} = ${currentRate} ${quoteCurrency} as of ${latestFetchTime}`}</Text>
           <Button customStyles={styles.reverseBtn} onPress={handleReverseCurrency}>
             <Image source={reverseImage} style={styles.reverseBtnImage} />
             <Text style={styles.reverseBtnText}>Reverse Currencies</Text>

@@ -23,13 +23,13 @@ type Props = {
 const CurrencyList: FC<Props> = ({ navigation, route }) => {
   const insets = useSafeArea();
   const { activeCurrency } = route.params ?? {};
-  const { baseCurrency, setBaseCurrency, setQuoteCurrency } = useContext(Currency.Context);
+  const { baseCurrency, changeCurrencyBase, changeCurrencyQuote } = useContext(Currency.Context);
 
   const handleSetCurrency = (selectedCurrency: string) => {
     if (activeCurrency === baseCurrency) {
-      setBaseCurrency(selectedCurrency);
+      changeCurrencyBase(selectedCurrency);
     } else {
-      setQuoteCurrency(selectedCurrency);
+      changeCurrencyQuote(selectedCurrency);
     }
   };
 
